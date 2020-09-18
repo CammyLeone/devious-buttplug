@@ -24,7 +24,7 @@ By default, the script looks for elements with ID `connect` and `tribute`, respe
 
 ```
   <script type="text/javascript">
-    window.ButtplugTribute.connectButton = ".some-css-class";
-    window.ButtplugTribute.tributeButton = ".some-other-css-class";
+    ButtplugTribute.connectButton = ".some-css-class";
+    ButtplugTribute.tributeButton = ".some-other-css-class";
   </script>
 ```
