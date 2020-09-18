@@ -34,7 +34,10 @@ async function onClickConnect() {
 
 async function onClickTribute() {
   document.removeEventListener("mousemove", onMouseMove);
-  vibrate(1);
+  setInterval(async () => {
+    await vibrate(1);
+    setTimeout(() => vibrate(0.3), 500);
+  }, 1000);
 }
 
 async function vibrate(intensity) {
