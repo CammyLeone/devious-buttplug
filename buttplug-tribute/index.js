@@ -11,46 +11,31 @@ let config = {
 };
 window.ButtplugTribute = config;
 
-const clickHandler = async (connectAddress) => {
+const getConnectButton = () => document.querySelector(config.connectButton);
+const getTributeButton = () => document.querySelector(config.tributeButton);
+
+async function onClickConnect(connectAddress) {
   let client = new Buttplug.ButtplugClient("Tutorial Client");
   client.addListener("deviceadded", async (_device) => {
     device = _device;
     await client.StopScanning();
   });
 
-  /*
-   * Now we'll try to connect to a server. Based on the button pushed
-   * by the user, we'll either try to connect to a remote websocket server,
-   * or to a local in-browser server.
-   */
   try {
-    /*
-     * And here's how we connect to a local, in-browser server. Thanks to WebBluetooth (and soon,
-     * the gamepad extensions API for supporting gamepad/VR controller rumble), we can run
-     * a Buttplug server completely inside the web browser and still control sex toys. Connecting to
-     * a local server will never fail, but is really only useful in browsers that support WebBluetooth.
-     * Currently, that's only Chrome on macOS, Linux, Android, and ChromeOS.
-     *
-     * Also, remember that using WebBluetooth requires a secure context (https) unless you're
-     * running on a whitelisted domain, which is usually just 127.0.0.1.
-     */
     const connector = new Buttplug.ButtplugEmbeddedClientConnector();
     await client.Connect(connector);
   } catch (e) {
-    // If something goes wrong, we're just logging to the console here. This is a tutorial on a development
-    // website, so we figure the developer has already read the code and knows to look at the console.
-    // At least, we hope.
-    console.log(e);
+    config.debug && console.log(e);
     return;
   }
 
-  /*
-   * Now we've got a client up and running, we'll need to scan for devices. Calling StartScanning will
-   * scan on all available busses. Some will scan until told to stop (bluetooth), others will scan once
-   * and return (gamepads, usb, etc...). When a device is found, a "deviceadded" event is emitted.
-   */
   await client.StartScanning();
-};
+}
+
+async function onClickTribute() {
+  document.removeEventListener("mousemove", onMouseMove);
+  vibrate(1);
+}
 
 function calculateDistance(elem, mouseX, mouseY) {
   return Math.floor(
@@ -72,7 +57,7 @@ async function vibrate(intensity) {
   }
 }
 
-function onMouseMove(e) {
+function _onMouseMove(e) {
   const tribute = document.querySelector(config.tributeButton);
   var rect = tribute.getBoundingClientRect();
   var x = e.clientX - rect.left; //x position within the element.
@@ -89,9 +74,14 @@ function onMouseMove(e) {
   vibrate(scale(distance));
 }
 
+const onMouseMove = throttle(_onMouseMove, 200);
+
 domready(() => {
   document
     .querySelector(config.connectButton)
-    .addEventListener("click", clickHandler);
-  document.addEventListener("mousemove", throttle(onMouseMove, 200));
+    .addEventListener("click", onClickConnect);
+  document
+    .querySelector(config.tributeButton)
+    .addEventListener("click", onClickTribute);
+  document.addEventListener("mousemove", onMouseMove);
 });
