@@ -17,5 +17,8 @@
     "domready": "^1.0.8",
     "lodash.throttle": "^4.1.1",
     "prettier": "^2.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.9.0"
   }
 }
