@@ -34,6 +34,9 @@ async function onClickConnect() {
 
 async function onClickTribute() {
   document.removeEventListener("mousemove", onMouseMove);
+
+  // TODO this doesn't give me the pulsing action I was hoping for,
+  // but it works good enough for now
   setInterval(async () => {
     await vibrate(1);
     setTimeout(() => vibrate(0.3), 500);
@@ -51,16 +54,18 @@ async function vibrate(intensity) {
   }
 }
 
+const pythagorean = (x, y) => Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
 function _onMouseMove(e) {
   var rect = getTributeButton().getBoundingClientRect();
-  var x = e.clientX - rect.left; //x position within the element.
-  var y = e.clientY - rect.top; //y position within the element.
+  var x = e.clientX - rect.left; // x position within the element.
+  var y = e.clientY - rect.top; // y position within the element.
 
-  const distance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-  const maxDistance = document.querySelector("body").getBoundingClientRect()
-    .width;
+  const distance = pythagorean(x, y);
+  const maxDistance = pythagorean(window.innerHeight, window.innerWidth);
   const scale = d3
-    .scaleLinear()
+    .scalePow()
+    .exponent(0.8)
     .clamp(true)
     .domain([maxDistance, 0])
     .range([0, 1]);
