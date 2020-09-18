@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify index.js -o dist/index.js"
+    "build": "browserify index.js -o dist/index.js",
+    "start": "beefy index.js:index.js --live"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
