@@ -14,7 +14,7 @@ window.ButtplugTribute = config;
 const getConnectButton = () => document.querySelector(config.connectButton);
 const getTributeButton = () => document.querySelector(config.tributeButton);
 
-async function onClickConnect(connectAddress) {
+async function onClickConnect() {
   let client = new Buttplug.ButtplugClient("Tutorial Client");
   client.addListener("deviceadded", async (_device) => {
     device = _device;
@@ -37,15 +37,6 @@ async function onClickTribute() {
   vibrate(1);
 }
 
-function calculateDistance(elem, mouseX, mouseY) {
-  return Math.floor(
-    Math.sqrt(
-      Math.pow(mouseX - (elem.offset().left + elem.width() / 2), 2) +
-        Math.pow(mouseY - (elem.offset().top + elem.height() / 2), 2)
-    )
-  );
-}
-
 async function vibrate(intensity) {
   if (config.debug) console.log("vibrating at ", intensity);
   if (device && device.AllowedMessages.indexOf("VibrateCmd") >= 0) {
@@ -58,8 +49,7 @@ async function vibrate(intensity) {
 }
 
 function _onMouseMove(e) {
-  const tribute = document.querySelector(config.tributeButton);
-  var rect = tribute.getBoundingClientRect();
+  var rect = getTributeButton().getBoundingClientRect();
   var x = e.clientX - rect.left; //x position within the element.
   var y = e.clientY - rect.top; //y position within the element.
 
@@ -77,11 +67,7 @@ function _onMouseMove(e) {
 const onMouseMove = throttle(_onMouseMove, 200);
 
 domready(() => {
-  document
-    .querySelector(config.connectButton)
-    .addEventListener("click", onClickConnect);
-  document
-    .querySelector(config.tributeButton)
-    .addEventListener("click", onClickTribute);
+  getConnectButton().addEventListener("click", onClickConnect);
+  getTributeButton().addEventListener("click", onClickTribute);
   document.addEventListener("mousemove", onMouseMove);
 });
