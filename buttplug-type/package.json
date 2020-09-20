@@ -20,7 +20,7 @@
     "test": "react-app-rewired test --env=jsdom --scripts-version react-scripts",
     "eject": "react-scripts eject",
     "build-and-stage": "npm run build && rm -rf ../dist/* && mv build/* ../dist && git add -A ../dist",
-    "deploy": "git commit && git subtree push --prefix dist willyoupleaseme main"
+    "deploy": "git commit && cd .. && git subtree push --prefix dist willyoupleaseme main"
   },
   "eslintConfig": {
     "extends": "react-app"
