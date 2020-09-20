@@ -15,9 +15,9 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start --scripts-version react-scripts",
+    "build": "react-app-rewired build --scripts-version react-scripts",
+    "test": "react-app-rewired test --env=jsdom --scripts-version react-scripts",
     "eject": "react-scripts eject",
     "deploy": "gsutil rm gs://plug.willyouplease.me/** && gsutil cp -r build/* gs://plug.willyouplease.me"
   },
@@ -35,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.6"
   }
 }
