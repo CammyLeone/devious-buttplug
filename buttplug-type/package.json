@@ -19,7 +19,8 @@
     "build": "react-app-rewired build --scripts-version react-scripts",
     "test": "react-app-rewired test --env=jsdom --scripts-version react-scripts",
     "eject": "react-scripts eject",
-    "deploy": "gsutil rm gs://plug.willyouplease.me/** && gsutil cp -r build/* gs://plug.willyouplease.me"
+    "build-and-stage": "npm run build && rm -rf ../dist/* && mv build/* ../dist && git add -A ../dist",
+    "deploy": "git commit && git subtree push --prefix dist willyoupleaseme main"
   },
   "eslintConfig": {
     "extends": "react-app"
