@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>B E E F Y</title>
+</head>
+<body>
+  <div id="content">
+  <script type="text/javascript">
+    function updateData({value}) {
+      document.querySelector("#content").innerHTML = value;
+    }
+
+    const source = new EventSource("http://localhost:3000/stream-twitter-data");
+
+    source.onmessage = function logEvents(event) {
+      updateData(JSON.parse(event.data));
+    }
+  </script>
+</body>
+</html>
+
