@@ -1,10 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const twitter = require("./twitter");
 require("dotenv").config();
 twitter.key(process.env.TWITTER_TOKEN);
 
 const server = express();
-const port = 3000;
+server.use(cors());
+const port = 5000;
 
 // create helper middleware so we can reuse server-sent events
 const useServerSentEventsMiddleware = (req, res, next) => {
@@ -42,10 +44,19 @@ server.get(
   streamTwitterData
 );
 
+server.get("/twitter-stats/:conversationId", (req, res) => {
+  res.json({
+    likes: 3923,
+    comments: 382,
+    retweets: 104,
+  });
+});
+
 twitter
   .resetAllRules()
   .catch((e) => {
-    console.error(`Error setting up Twitter: ${e.stack}`);
+    console.error(`Error setting up Twitter: ${e.message}`);
+    console.error(e.stack);
     process.exit(-1);
   })
   .then(() => {

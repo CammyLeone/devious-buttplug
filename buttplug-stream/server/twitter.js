@@ -1,4 +1,5 @@
 const needle = require("needle");
+const got = require("got");
 let token = null;
 const key = (key) => {
   token = key;
@@ -8,24 +9,21 @@ const rulesURL = "https://api.twitter.com/2/tweets/search/stream/rules";
 const streamURL = "https://api.twitter.com/2/tweets/search/stream";
 
 // Edit rules as desired here below
-const rules = [{ value: "conversation_id:1307871813750448129 is:reply" }];
+const rules = [
+  { value: "conversation_id:1307871813750448129 is:reply", tag: "uephoria" },
+  { value: "feet OR pedicure OR toes OR soles has:images", tag: "feet" },
+];
 // const rules = [
 //   { value: "dog has:images -is:retweet", tag: "dog pictures" },
 //   { value: "cat has:images -grumpy", tag: "cat pictures" },
 // ];
 
 async function getAllRules() {
-  const response = await needle("get", rulesURL, {
+  return await got(rulesURL, {
     headers: {
       authorization: `Bearer ${token}`,
     },
-  });
-
-  if (response.statusCode !== 200) {
-    throw new Error(response.body);
-  }
-
-  return response.body;
+  }).json();
 }
 
 async function deleteAllRules(rules) {
@@ -41,18 +39,15 @@ async function deleteAllRules(rules) {
     },
   };
 
-  const response = await needle("post", rulesURL, data, {
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (response.statusCode !== 200) {
-    throw new Error(response.body);
-  }
-
-  return response.body;
+  return await got
+    .post(rulesURL, {
+      json: data,
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+    .json();
 }
 
 async function setRules() {
@@ -60,18 +55,15 @@ async function setRules() {
     add: rules,
   };
 
-  const response = await needle("post", rulesURL, data, {
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (response.statusCode !== 201) {
-    throw new Error(response.body);
-  }
-
-  return response.body;
+  return await got
+    .post(rulesURL, {
+      json: data,
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+    .json();
 }
 
 function streamConnect(onData) {
@@ -80,7 +72,7 @@ function streamConnect(onData) {
     timeout: 20000,
   };
 
-  const stream = needle.get(
+  const stream = got.stream(
     streamURL,
     {
       headers: {
