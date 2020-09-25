@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateFromAPI,
@@ -6,8 +7,11 @@ import {
   selectComments,
   selectRetweets,
 } from "./twitterStatsSlice";
+import MoneyMoney from "../../MoneyMoney";
 
-export function TwitterStats({ conversationId, cashMoneySpec, duration }) {
+export function TwitterStats() {
+  const { conversationId, until, ...cashMoneySpec } = useParams();
+
   const likes = useSelector(selectLikes);
   const comments = useSelector(selectComments);
   const retweets = useSelector(selectRetweets);
@@ -22,6 +26,12 @@ export function TwitterStats({ conversationId, cashMoneySpec, duration }) {
       <h1>Likes: {likes || "-"}</h1>
       <h1>Comments: {comments || "-"}</h1>
       <h1>Retweets: {retweets || "-"}</h1>
+      <MoneyMoney
+        likes={likes}
+        comments={comments}
+        retweets={retweets}
+        cashMoneySpec={cashMoneySpec}
+      />
     </div>
   );
 }

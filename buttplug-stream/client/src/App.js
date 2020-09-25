@@ -1,8 +1,18 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
+import NewDrain from "./NewDrain";
 import { TwitterStats } from "./features/twitterStats/TwitterStats";
 
 function App() {
-  return <TwitterStats conversationId="1308997757424881668" />;
+  return (
+    <Switch>
+      <Route path="/new" component={NewDrain} />
+      <Route
+        path="/drain/:conversationId/:currency/:perLike/:perComment/:perRetweet"
+        component={TwitterStats}
+      />
+    </Switch>
+  );
 }
 
 export default App;

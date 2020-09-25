@@ -44,12 +44,22 @@ server.get(
   streamTwitterData
 );
 
+const mockStats = {
+  likes: 0,
+  comments: 0,
+  retweets: 0,
+};
+
+const incrementByRandomAmount = (val) => val + Math.floor(Math.random() * 10);
+const incrementMockStats = () => {
+  Object.entries(mockStats).forEach(
+    ([key, value]) => (mockStats[key] = incrementByRandomAmount(value))
+  );
+  return mockStats;
+};
+
 server.get("/twitter-stats/:conversationId", (req, res) => {
-  res.json({
-    likes: 3923,
-    comments: 382,
-    retweets: 104,
-  });
+  res.json(incrementMockStats());
 });
 
 twitter
