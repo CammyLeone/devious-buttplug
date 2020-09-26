@@ -1,22 +1,32 @@
-const needle = require("needle");
 const got = require("got");
 let token = null;
 const key = (key) => {
   token = key;
 };
 
+const searchUrl = (conversationId) =>
+  `https://api.twitter.com/2/tweets/${conversationId}`;
 const rulesURL = "https://api.twitter.com/2/tweets/search/stream/rules";
 const streamURL = "https://api.twitter.com/2/tweets/search/stream";
 
 // Edit rules as desired here below
-const rules = [
+const RULES = [
   { value: "conversation_id:1307871813750448129 is:reply", tag: "uephoria" },
   { value: "feet OR pedicure OR toes OR soles has:images", tag: "feet" },
 ];
-// const rules = [
-//   { value: "dog has:images -is:retweet", tag: "dog pictures" },
-//   { value: "cat has:images -grumpy", tag: "cat pictures" },
-// ];
+
+const PARAMS = {
+  "tweet.fields": "public_metrics",
+};
+
+async function getTweetMetrics(conversationId) {
+  return await got(searchUrl(conversationId), {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+    searchParams: PARAMS,
+  }).json();
+}
 
 async function getAllRules() {
   return await got(rulesURL, {
@@ -52,7 +62,7 @@ async function deleteAllRules(rules) {
 
 async function setRules() {
   const data = {
-    add: rules,
+    add: RULES,
   };
 
   return await got
@@ -135,6 +145,7 @@ async function connectToStream(onData) {
 
 module.exports = {
   key,
+  getTweetMetrics,
   resetAllRules,
   connectToStream,
 };

@@ -74,7 +74,7 @@ export default function NewDrain() {
         <label htmlFor="until">Until: </label>
         <DateTimePicker
           id="until"
-          value={drain.until}
+          value={drain.until.toJSDate()}
           onChange={(value) =>
             updateDetails((draft) => {
               draft.until = DateTime.fromJSDate(value);

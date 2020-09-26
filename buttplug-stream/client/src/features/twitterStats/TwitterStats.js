@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useInterval from "react-useinterval";
@@ -21,6 +21,10 @@ export function TwitterStats() {
   const comments = useSelector(selectComments);
   const retweets = useSelector(selectRetweets);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateFromAPI(conversationId));
+  }, [conversationId, dispatch]);
 
   useInterval(() => {
     dispatch(updateFromAPI(conversationId));
