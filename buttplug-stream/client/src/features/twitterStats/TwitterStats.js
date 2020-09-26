@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import useInterval from "react-useinterval";
+
 import {
   updateFromAPI,
   selectLikes,
@@ -8,6 +10,9 @@ import {
   selectRetweets,
 } from "./twitterStatsSlice";
 import MoneyMoney from "../../MoneyMoney";
+import CountdownTimer from "../../CountdownTimer";
+
+const UPDATE_INTERVAL = 15 * 1000;
 
 export function TwitterStats() {
   const { conversationId, until, ...cashMoneySpec } = useParams();
@@ -17,9 +22,9 @@ export function TwitterStats() {
   const retweets = useSelector(selectRetweets);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useInterval(() => {
     dispatch(updateFromAPI(conversationId));
-  }, [conversationId, dispatch]);
+  }, UPDATE_INTERVAL);
 
   return (
     <div>
@@ -32,6 +37,7 @@ export function TwitterStats() {
         retweets={retweets}
         cashMoneySpec={cashMoneySpec}
       />
+      {until && <CountdownTimer until={Number(until)} />}
     </div>
   );
 }

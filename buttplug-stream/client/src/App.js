@@ -8,7 +8,7 @@ function App() {
     <Switch>
       <Route path="/new" component={NewDrain} />
       <Route
-        path="/drain/:conversationId/:currency/:perLike/:perComment/:perRetweet"
+        path="/drain/:conversationId/:currency/:perLike/:perComment/:perRetweet/:until"
         component={TwitterStats}
       />
     </Switch>
