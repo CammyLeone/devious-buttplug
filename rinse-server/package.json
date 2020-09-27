@@ -1,9 +1,11 @@
 {
-  "name": "buttplug-stream-server",
+  "name": "rinse-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "eslintConfig": {
     "extends": "eslint:recommended",
     "env": {

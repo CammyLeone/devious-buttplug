@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "workspaces": [
+    "rinse-client",
+    "rinse-server",
+    "sayitagain-client",
+    "tribute-lib"
+  ]
+}
