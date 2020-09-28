@@ -29,7 +29,7 @@ const mockStats = {
   retweets: 0,
 };
 
-const incrementByRandomAmount = (val) => val + Math.floor(Math.random() * 10);
+const incrementByRandomAmount = (val) => val + Math.floor(Math.random() * 5);
 const incrementMockStats = () => {
   Object.entries(mockStats).forEach(
     ([key, value]) => (mockStats[key] = incrementByRandomAmount(value))

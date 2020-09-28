@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useInterval from "react-useinterval";
-import { ConnectAToy, useVibration } from "react-buttplug";
+import { ConnectAToy } from "react-buttplug";
 
 import {
   updateFromAPI,
@@ -25,7 +25,6 @@ export function TwitterStats() {
   const dispatch = useDispatch();
 
   const [device, setDevice] = useState(null);
-  useVibration(device, 0.5);
 
   useEffect(() => {
     dispatch(updateFromAPI(conversationId));
@@ -41,6 +40,7 @@ export function TwitterStats() {
       <h1>Comments: {comments || "-"}</h1>
       <h1>Retweets: {retweets || "-"}</h1>
       <MoneyMoney
+        device={device}
         likes={likes}
         comments={comments}
         retweets={retweets}
