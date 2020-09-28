@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useInterval from "react-useinterval";
+import { ConnectAToy, useVibration } from "react-hook-buttplug-lib";
 
 import {
   updateFromAPI,
@@ -23,6 +24,9 @@ export function TwitterStats() {
   const retweets = useSelector(selectRetweets);
   const dispatch = useDispatch();
 
+  const [device, setDevice] = useState(null);
+  useVibration(device, 0.5);
+
   useEffect(() => {
     dispatch(updateFromAPI(conversationId));
   }, [conversationId, dispatch]);
@@ -43,6 +47,7 @@ export function TwitterStats() {
         cashMoneySpec={cashMoneySpec}
       />
       {until && <CountdownTimer until={Number(until)} />}
+      <ConnectAToy onNewDevice={(device) => setDevice(device)} />
     </div>
   );
 }

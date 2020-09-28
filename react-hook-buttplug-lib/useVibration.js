@@ -2,6 +2,8 @@ import { useEffect } from "react";
 
 export default function useVibrate(device, level) {
   useEffect(() => {
+    if (!device) return;
+
     async function startVibrate() {
       console.log("startVibrate()");
       await device.SendVibrateCmd(level);

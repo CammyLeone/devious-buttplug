@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
 import { ButtplugClient, ButtplugEmbeddedClientConnector } from "buttplug";
 
-export default function useButtPlug() {
+export default function useButtPlug(ready, onNewDevice) {
   const [client, setClient] = useState(null);
   const [device, setDevice] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    if (client) return;
+    if (!ready || client) return;
 
     const newClient = new ButtplugClient("Cammy");
     newClient.addListener("deviceadded", (device) => {
       setDevice(device);
       setIsConnected(true);
+      onNewDevice(device);
     });
 
     setClient(newClient);
-  }, [client, device, isConnected]);
+  }, [ready, onNewDevice, client, device, isConnected]);
 
   useEffect(() => {
     if (!client || isConnected) return;

@@ -31,7 +31,7 @@ export const twitterStatsSlice = createSlice({
 const { apiDataReceived, apiError } = twitterStatsSlice.actions;
 
 export const updateFromAPI = (conversationId) => async (dispatch) => {
-  const url = `http://localhost:5000/twitter-stats/${conversationId}`;
+  const url = `http://localhost:5000/twitter-stats-mock/${conversationId}`;
   try {
     const response = await fetch(url);
     if (!response.ok) return dispatch(apiError);
