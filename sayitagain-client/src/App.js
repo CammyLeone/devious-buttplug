@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import useButtPlug from "./useButtPlug.js";
+import { useButtPlug } from "react-hook-buttplug-lib";
 
-import "./App.css";
 import LineWriter from "./LineWriter";
 
 function App() {

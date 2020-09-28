@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useVibration } from "react-hook-buttplug-lib";
 
 import * as d3 from "./d3-bundle";
-import Vibrate from "./Vibrate";
+import useSelfDismissing from "./hooks/useSelfDismissing";
+import useTimesOutIn from "./hooks/useTimesOutIn";
 
 const scale = (times) =>
   d3.scaleLinear().clamp(true).domain([0, times]).range([0, 1]);
@@ -9,39 +11,13 @@ const scale = (times) =>
 const color = (max) =>
   d3.scaleSequential(d3.interpolatePlasma).domain([0, max]);
 
-function useSelfDismissing(timeout) {
-  const [shown, setShown] = useState(false);
-  useEffect(() => {
-    if (shown) setTimeout(() => setShown(false), timeout);
-  }, [shown, timeout]);
-
-  return [shown, setShown.bind(true)];
-}
-
-function useTimesOutIn(millis) {
-  const [mostRecent, setMostRecent] = useState(null);
-  const [isExpired, setExpired] = useState(false);
-  const timeout = React.useRef(null);
-  useEffect(() => {
-    if (isExpired) return;
-
-    if (timeout.current) clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => setExpired(true), millis);
-  }, [mostRecent, isExpired, millis]);
-
-  const resetExpired = () => {
-    setExpired(false);
-    setMostRecent(Date.now());
-  };
-  return [isExpired, resetExpired];
-}
-
 function LineWriter({ device, line, times }) {
   const [currentTimes, setCurrentTimes] = useState(0);
   const [text, updateText] = useState("");
   const [isWrongShown, showWrong] = useSelfDismissing(1000);
   const [isExpiredShown, showExpired] = useSelfDismissing(1000);
   const [isExpired, resetExpired] = useTimesOutIn(3000);
+  useVibration(device, scale(times)(currentTimes));
 
   useEffect(() => {
     if (!isExpired) return;
@@ -92,7 +68,6 @@ function LineWriter({ device, line, times }) {
       </section>
       {isWrongShown && <h2>WRONG</h2>}
       {isExpiredShown && <h2>EXPIRED</h2>}
-      <Vibrate device={device} level={scale(times)(currentTimes)} on />
     </div>
   );
 }

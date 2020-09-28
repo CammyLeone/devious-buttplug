@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function Vibrate({ on, device, level }) {
+export default function useVibrate(device, level) {
   useEffect(() => {
     async function startVibrate() {
       console.log("startVibrate()");
@@ -14,15 +14,13 @@ function Vibrate({ on, device, level }) {
       console.log("stopVibrate() over");
     }
 
-    console.log(`vibrateEffect: ${on}, ${level}`);
-    if (on && level > 0) {
+    console.log(`vibrateEffect: ${level}`);
+    if (level > 0) {
       startVibrate();
     } else {
       stopVibrate();
     }
-  }, [on, device, level]);
+  }, [device, level]);
 
   return null;
 }
-
-export default Vibrate;

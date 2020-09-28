@@ -17,6 +17,7 @@ const UPDATE_INTERVAL = 15 * 1000;
 export function TwitterStats() {
   const { conversationId, until, ...cashMoneySpec } = useParams();
 
+  // TODO bug: initial state of 0/0/0 displays as -
   const likes = useSelector(selectLikes);
   const comments = useSelector(selectComments);
   const retweets = useSelector(selectRetweets);
