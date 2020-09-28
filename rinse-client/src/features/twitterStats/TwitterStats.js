@@ -47,7 +47,12 @@ export function TwitterStats() {
         cashMoneySpec={cashMoneySpec}
       />
       {until && <CountdownTimer until={Number(until)} />}
-      <ConnectAToy onNewDevice={(device) => setDevice(device)} />
+      <ConnectAToy
+        render={({ initiateConnection }) => (
+          <button onClick={initiateConnection}>Make it Interesting</button>
+        )}
+        onNewDevice={setDevice}
+      />
     </div>
   );
 }
