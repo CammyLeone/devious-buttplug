@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useVibration } from "react-hook-buttplug-lib";
+import { useVibration } from "react-buttplug";
 
 import * as d3 from "./d3-bundle";
 import useSelfDismissing from "./hooks/useSelfDismissing";

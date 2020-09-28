@@ -16,7 +16,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-useinterval": "^1.0.2",
-    "use-immer": "^0.4.1"
+    "use-immer": "^0.4.1",
+    "react-buttplug": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

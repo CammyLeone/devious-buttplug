@@ -13,7 +13,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "react-hook-buttplug-lib": "1.0.0"
+    "react-buttplug": "1.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts",

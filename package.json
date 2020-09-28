@@ -3,7 +3,7 @@
   "workspaces": [
     "rinse-client",
     "rinse-server",
-    "react-hook-buttplug-lib",
+    "react-buttplug",
     "sayitagain-client",
     "tribute-lib"
   ]
