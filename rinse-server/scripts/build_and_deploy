@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eoi pipefail
+
+docker build -t rinse-server:latest -f rinse-server/Dockerfile .
+docker tag rinse-server:latest gcr.io/willyouplease-me/rinse-server:latest
+docker push gcr.io/willyouplease-me/rinse-server:latest
+gcloud run deploy --image gcr.io/willyouplease-me/rinse-server:latest --platform managed

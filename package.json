@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "deploy-rinse-server": "rinse-server/scripts/build_and_deploy"
+  },
   "private": true,
   "workspaces": [
     "rinse-client",

@@ -5,10 +5,10 @@ const useServerSentEventsMiddleware = require("./useServerSentEventsMiddleware")
 
 require("dotenv").config();
 twitter.key(process.env.TWITTER_TOKEN);
+const PORT = process.env.PORT;
 
 const server = express();
 server.use(cors());
-const port = 5000;
 
 const streamTwitterData = (req, res) => {
   twitter.connectToStream((data) => {
@@ -60,8 +60,8 @@ twitter
     process.exit(-1);
   })
   .then(() => {
-    server.listen(port, () =>
+    server.listen(PORT, () =>
       console.log(`Example app listening at 
-      http://localhost:${port}`)
+      http://localhost:${PORT}`)
     );
   });

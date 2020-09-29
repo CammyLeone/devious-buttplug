@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "watch": "nodemon index.js"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
