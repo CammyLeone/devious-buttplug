@@ -3,6 +3,8 @@ import { useImmer } from "use-immer";
 import { DateTime } from "luxon";
 import { DateTimePicker } from "react-rainbow-components";
 
+const URL_BASE = process.env.PUBLIC_URL;
+
 export default function NewDrain() {
   const [drain, updateDetails] = useImmer({
     conversationId: "",
@@ -16,7 +18,7 @@ export default function NewDrain() {
 
   const areDetailsComplete = Object.values(drain).every((v) => Boolean(v));
   const urlFromDetails = () =>
-    `http://localhost:3000/drain/${drain.conversationId}/${drain.currency}/${
+    `${URL_BASE}/#/drain/${drain.conversationId}/${drain.currency}/${
       drain.perLike
     }/${drain.perComment}/${drain.perRetweet}/${drain.until.toMillis()}`;
 

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const URL_BASE = process.env.REACT_APP_API_BASE_URL;
 export const twitterStatsSlice = createSlice({
   name: "twitterStats",
   initialState: {
@@ -31,7 +32,7 @@ export const twitterStatsSlice = createSlice({
 const { apiDataReceived, apiError } = twitterStatsSlice.actions;
 
 export const updateFromAPI = (conversationId) => async (dispatch) => {
-  const url = `http://localhost:5000/twitter-stats-mock/${conversationId}`;
+  const url = `${URL_BASE}/twitter-stats-mock/${conversationId}`;
   try {
     const response = await fetch(url);
     if (!response.ok) return dispatch(apiError);
