@@ -1,4 +1,5 @@
-// create helper middleware so we can reuse server-sent events
+// Lovingly cribbed from
+// https://dev.to/4shub/building-with-server-sent-events-13j
 const useServerSentEventsMiddleware = (req, res, next) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
