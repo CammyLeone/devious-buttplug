@@ -5,7 +5,7 @@ import { ConnectAToy, useVibration } from "react-buttplug";
 import getClientId from "../../getClientId";
 import {
   selectMe,
-  clientConnected,
+  join,
   clientDisconnected,
   clientDeviceState,
 } from "./shareSlice";
@@ -62,11 +62,7 @@ function NewMe() {
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
       />
-      <button
-        onClick={() =>
-          dispatch(clientConnected({ id: getClientId(), name, isMe: true }))
-        }
-      >
+      <button onClick={() => dispatch(join({ id: getClientId(), name }))}>
         Join
       </button>
     </div>
