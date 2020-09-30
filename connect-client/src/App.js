@@ -1,14 +1,13 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
+
 import { Share } from "./features/share/Share";
-import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Share />
-      </header>
-    </div>
+    <Switch>
+      <Route path="/:group" component={Share} />
+    </Switch>
   );
 }
 

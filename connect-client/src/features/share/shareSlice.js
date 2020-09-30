@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const shareSlice = createSlice({
   name: "share",
   initialState: {
+    group: null,
     clients: {
       // "2382j23": {
       //   isMe: true,
@@ -24,6 +25,9 @@ export const shareSlice = createSlice({
     },
   },
   reducers: {
+    newSession: (state, { payload }) => {
+      state.group = payload;
+    },
     clientConnected: (state, { payload: { id, name, isMe = false } }) => {
       // from socketio
       // go outward if dispatched locally
@@ -45,6 +49,7 @@ export const shareSlice = createSlice({
 });
 
 export const {
+  newSession,
   clientConnected,
   clientDisconnected,
   clientDeviceState,
