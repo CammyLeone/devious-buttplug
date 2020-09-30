@@ -6,6 +6,8 @@
   "workspaces": [
     "rinse-client",
     "rinse-server",
+    "connect-client",
+    "connect-server",
     "react-buttplug",
     "sayitagain-client",
     "tribute-lib"

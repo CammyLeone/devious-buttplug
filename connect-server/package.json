@@ -1,0 +1,38 @@
+{
+  "name": "connect-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "es2020": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CammyLeone/devious-buttplug.git"
+  },
+  "author": "Cammy Leone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CammyLeone/devious-buttplug/issues"
+  },
+  "homepage": "https://github.com/CammyLeone/devious-buttplug#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "got": "^11.7.0",
+    "needle": "^2.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.2"
+  }
+}
