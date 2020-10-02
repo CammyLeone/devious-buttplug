@@ -36,4 +36,4 @@ app.get("/start-over", (req, res) => {
   res.json(store.getState().share);
 });
 
-server.listen(4000);
+server.listen(process.env.PORT);
