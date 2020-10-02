@@ -1,5 +1,7 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 
+const API_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const shareSlice = createSlice({
   name: "share",
   initialState: {
@@ -33,7 +35,7 @@ export const clientVibration = createAction("share/clientVibration");
 
 const { setFromServer } = shareSlice.actions;
 export const initFromServer = () => async (dispatch) => {
-  const response = await fetch("http://localhost:4000/hydrate");
+  const response = await fetch(`${API_URL}/hydrate`);
   const data = await response.json();
   dispatch(setFromServer(data));
 };

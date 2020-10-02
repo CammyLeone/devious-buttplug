@@ -3,7 +3,9 @@ import createSocketIoMiddleware from "redux-socket.io";
 import io from "socket.io-client";
 import shareReducer from "../features/share/shareSlice";
 
-let socket = io("http://localhost:4000");
+const API_URL = process.env.REACT_APP_API_BASE_URL;
+
+let socket = io(API_URL);
 let socketIoMiddleware = createSocketIoMiddleware(socket, "share/client");
 
 export default configureStore({
