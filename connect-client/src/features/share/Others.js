@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { selectOthers } from "./shareSlice";
+import { selectOthers, clientVibration } from "./shareSlice";
 
 export default function Others() {
   const others = useSelector(selectOthers);
@@ -15,10 +15,26 @@ export default function Others() {
 }
 
 export function Other({ other }) {
-  const { name, hasDevice, intensity } = other;
+  const { id, name, hasDevice, intensity } = other;
+  const dispatch = useDispatch();
+
   return (
     <h1>
       {name}, device: {hasDevice ? "✓" : "🚷"}, intensity: {intensity}
+      {hasDevice && (
+        <input
+          type="range"
+          min="0"
+          max="0.9"
+          step="0.1"
+          value={intensity}
+          onChange={(e) =>
+            dispatch(clientVibration({ id, intensity: Number(e.target.value) }))
+          }
+          onFocus={() => console.log("onFocus")}
+          onBlur={() => console.log("onBlur")}
+        />
+      )}
     </h1>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ConnectAToy, useVibration } from "react-buttplug";
 
@@ -20,16 +20,16 @@ export default function Me() {
 function ConnectedMe({ me }) {
   const { id, name, hasDevice, intensity } = me;
   const dispatch = useDispatch();
-  const [device, setDevice] = useState(null);
+  const device = useRef(null);
 
   const newDevice = useCallback(
-    (device) => {
-      setDevice(device);
-      dispatch(clientDeviceState(id, true));
+    (d) => {
+      device.current = d;
+      dispatch(clientDeviceState({ id, hasDevice: true }));
     },
     [id, dispatch]
   );
-  useVibration(device, intensity);
+  useVibration(device.current, intensity);
 
   useEffect(() => {
     return () => dispatch(clientDisconnected(id));

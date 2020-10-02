@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAction } from "@reduxjs/toolkit";
 
 export const shareSlice = createSlice({
   name: "share",
@@ -6,23 +6,7 @@ export const shareSlice = createSlice({
     me: null,
     group: null,
     locks: {},
-    clients: {
-      // "2382j23": {
-      //   isMe: true,
-      //   name: "Cammy",
-      //   hasDevice: true,
-      //   intensity: 0,
-      // },
-      "983hq923h": {
-        name: "Quinn",
-        hasDevice: true,
-        intensity: 0,
-      },
-      "1hiu2hu219": {
-        name: "Marcia",
-        hasDevice: false,
-      },
-    },
+    clients: {},
   },
   reducers: {
     setMe: (state, { payload: { id } }) => {
@@ -31,40 +15,28 @@ export const shareSlice = createSlice({
     newSession: (state, { payload }) => {
       state.group = payload;
     },
-    lockAcquired: (state, { payload: { lockedId, holderId } }) => {
-      state.locks[lockedId] = holderId;
-    },
-    lockReleased: (state, { payload: { lockedId } }) => {
-      delete state.locks[lockedId];
-    },
-    clientConnected: (state, { payload: { id, name, isMe = false } }) => {
-      // from socketio
-      // go outward if dispatched locally
-      state.clients[id] = { name, hasDevice: false, isMe };
-    },
-    clientDisconnected: (state, { payload: { id } }) => {
-      // from socketio
-      delete state.clients[id];
-    },
-    clientDeviceState: (state, { payload: { id, hasDevice } }) => {
-      // from socketio
-      state.clients[id].hasDevice = hasDevice;
-      state.clients[id].intensity = 0;
-    },
-    clientVibration: (state, { payload: { id, intensity } }) => {
-      state.clients[id].intensity = intensity;
+    setFromServer: (state, { payload }) => {
+      state.locks = payload.locks;
+      state.clients = payload.clients;
     },
   },
 });
 
-export const {
-  setMe,
-  newSession,
-  clientDisconnected,
-  clientDeviceState,
-  clientVibration,
-} = shareSlice.actions;
-const { clientConnected } = shareSlice.actions;
+export const { setMe, newSession } = shareSlice.actions;
+
+export const lockAcquired = createAction("share/lockAcquired");
+export const lockReleased = createAction("share/lockReleased");
+export const clientConnected = createAction("share/clientConnected");
+export const clientDisconnected = createAction("share/clientDisconnected");
+export const clientDeviceState = createAction("share/clientDeviceState");
+export const clientVibration = createAction("share/clientVibration");
+
+const { setFromServer } = shareSlice.actions;
+export const initFromServer = () => async (dispatch) => {
+  const response = await fetch("http://localhost:4000/hydrate");
+  const data = await response.json();
+  dispatch(setFromServer(data));
+};
 
 export const join = ({ id, name }) => (dispatch) => {
   dispatch(setMe({ id }));

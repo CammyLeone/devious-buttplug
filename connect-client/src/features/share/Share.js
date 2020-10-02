@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import Others from "./Others";
 import Me from "./Me";
-import { newSession } from "./shareSlice";
+import { newSession, initFromServer } from "./shareSlice";
 
 export function Share() {
   const { group } = useParams();
@@ -12,6 +12,7 @@ export function Share() {
 
   useEffect(() => {
     dispatch(newSession(group));
+    dispatch(initFromServer());
   });
 
   return (

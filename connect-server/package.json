@@ -4,14 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "node": true,
-      "es2020": true
-    }
+    "start": "nodemon --exec babel-node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,14 +17,21 @@
   },
   "homepage": "https://github.com/CammyLeone/devious-buttplug#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "got": "^11.7.0",
-    "needle": "^2.5.2"
+    "needle": "^2.5.2",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "eslint": "^7.9.0",
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/eslint-parser": "^7.11.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "eslint": "^7.10.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2"
   }
