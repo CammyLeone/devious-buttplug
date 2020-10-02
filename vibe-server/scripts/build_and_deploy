@@ -5,4 +5,4 @@ set -eoi pipefail
 docker build -t vibe-server:latest -f vibe-server/Dockerfile .
 docker tag vibe-server:latest gcr.io/willyouplease-me/vibe-server:latest
 docker push gcr.io/willyouplease-me/vibe-server:latest
-gcloud run deploy --image gcr.io/willyouplease-me/vibe-server:latest --platform managed
+# This one is deployed on GCloud compute which *should* pull the new image but might not.

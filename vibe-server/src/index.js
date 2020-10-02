@@ -1,15 +1,20 @@
-const app = require("express")();
-const server = require("http").createServer(app);
 import cors from "cors";
 import store from "./store";
 import { setFromServer, clientDisconnected, resetState } from "./shareSlice";
 
-app.use(cors());
-const options = {
-  /* ... */
-};
-const io = require("socket.io")(server, options);
+import path from "path";
+import express from "express";
+import socketio from "socket.io";
+import http from "http";
+import https from "https";
+import fs from "fs";
 
+const app = express();
+app.use(cors());
+const io = socketio();
+const server = http.createServer(app);
+
+io.attach(server);
 io.on("connection", (socket) => {
   socket.on("action", (data) => {
     console.log("action received!", data);
@@ -36,4 +41,22 @@ app.get("/start-over", (req, res) => {
   res.json(store.getState().share);
 });
 
-server.listen(process.env.PORT);
+server.listen(80, () => {
+  console.log("HTTP server running on port 80");
+});
+
+if (process.env.NODE_ENV === "production") {
+  const httpsServer = https.createServer(
+    {
+      key: fs.readFileSync("./ssl/privkey.pem"),
+      cert: fs.readFileSync("./ssl/fullchain.pem"),
+    },
+    app
+  );
+
+  io.attach(httpsServer);
+
+  httpsServer.listen(443, () => {
+    console.log("HTTPS Server running on port 443");
+  });
+}
