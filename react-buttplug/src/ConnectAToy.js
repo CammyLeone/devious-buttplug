@@ -1,11 +1,31 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import useButtPlug from "./useButtPlug";
 
-export default function ConnectAToy({ render, onNewDevice }) {
+const DefaultClickToStart = ({ initiateConnection }) => (
+  <button onClick={initiateConnection}>Connect a Toy</button>
+);
+const DefaultClickToStop = ({ stopConnecting }) => (
+  <button onClick={stopConnecting}>Stop Connecting</button>
+);
+const DefaultConnected = () => <span>Connected!</span>;
+
+export default function ConnectAToy({
+  clickToStart = DefaultClickToStart,
+  clickToStop = DefaultClickToStop,
+  connected = DefaultConnected,
+  onNewDevice,
+}) {
   const [isReady, setReady] = useState(false);
+  const [isConnected, setConnected] = useState(false);
 
-  useButtPlug(isReady, onNewDevice);
+  useButtPlug(isReady, (device) => {
+    setConnected(true);
+    onNewDevice(device);
+  });
 
-  if (!isReady) return render({ initiateConnection: () => setReady(true) });
+  if (isConnected) return connected();
+  if (!isReady)
+    return clickToStart({ initiateConnection: () => setReady(true) });
+  if (isReady) return clickToStop({ stopConnecting: () => setReady(false) });
   return null;
 }

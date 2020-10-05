@@ -1,39 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ButtplugClient, ButtplugEmbeddedClientConnector } from "buttplug";
 
 export default function useButtPlug(ready, onNewDevice) {
-  const [client, setClient] = useState(null);
+  const client = useRef(null);
   const [device, setDevice] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    if (!ready || client) return;
+    if (client.current && !ready) {
+      client.current = null;
+    }
+    if (client.current || !ready) return;
 
-    const newClient = new ButtplugClient("Cammy");
-    newClient.addListener("deviceadded", (device) => {
+    client.current = new ButtplugClient("Cammy");
+    client.current.addListener("deviceadded", (device) => {
       setDevice(device);
       setIsConnected(true);
       onNewDevice(device);
     });
 
-    setClient(newClient);
-  }, [ready, onNewDevice, client, device, isConnected]);
-
-  useEffect(() => {
-    if (!client || isConnected) return;
-
     async function start() {
       try {
         const connector = new ButtplugEmbeddedClientConnector();
-        await client.Connect(connector);
+        await client.current.Connect(connector);
       } catch (e) {
         console.log(e);
         return;
       }
-      await client.StartScanning();
+      await client.current.StartScanning();
     }
     start();
-  }, [client, isConnected]);
+  }, [ready]);
 
   return { client, device, isConnected };
 }
