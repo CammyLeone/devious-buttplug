@@ -29,7 +29,6 @@ export const { setMe, newSession } = shareSlice.actions;
 export const lockAcquired = createAction("share/lockAcquired");
 export const lockReleased = createAction("share/lockReleased");
 export const clientConnected = createAction("share/clientConnected");
-export const clientDisconnected = createAction("share/clientDisconnected");
 export const clientDeviceState = createAction("share/clientDeviceState");
 export const clientVibration = createAction("share/clientVibration");
 
