@@ -6,6 +6,7 @@ import { Share } from "./features/share/Share";
 function App() {
   return (
     <Switch>
+      <Route path="/" component={Share} />
       <Route path="/:group" component={Share} />
     </Switch>
   );
