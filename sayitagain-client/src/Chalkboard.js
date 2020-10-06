@@ -4,16 +4,11 @@ import chalk from "./chalk.png";
 export const Chalkboard = styled.main`
   display: flex;
   flex-direction: row;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background: url(https://raw.github.com/mmoustafa/Chalkboard/master/img/bg.png);
 `;
 
 export const WritingArea = styled.section`
+  height: 100vh;
+  overflow: scroll;
   flex-grow: 3;
   padding: 3rem;
 `;
@@ -22,12 +17,16 @@ export const NotesArea = styled.section`
   width: 20%;
   min-width: 300px;
   border-left: 2px dotted #fff;
+  display: flex;
+  flex-direction: column;
+
   & section {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 3rem;
+    padding: 2rem;
     border-bottom: 2px dotted #fff;
     &:last-of-type {
       border-bottom: 0;
@@ -35,21 +34,10 @@ export const NotesArea = styled.section`
   }
 `;
 
-export const HiddenInput = styled.input`
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-`;
-
 export const ChalkWriting = styled.span`
-  box-sizing: border-box;
   position: relative;
   font-size: 4rem;
-  color: #fff;
 
-  ${(props) =>
-    props.populated &&
-    `
-  color: rgba(255,255,255, 0.3);
   &::after {
     content: "";
     display: inline-block;
@@ -60,7 +48,6 @@ export const ChalkWriting = styled.span`
     background-size: contain;
     background-repeat: no-repeat;
   }
-  `}
 `;
 
 export const ChalkButton = styled.button`
@@ -79,4 +66,21 @@ export const ChalkButton = styled.button`
   &:active {
     background-color: rgba(255, 255, 255, 0.5);
   }
+`;
+
+export const Text = styled.span`
+  font-size: ${(props) => {
+    if (props.huge) return "4rem";
+    if (props.large) return "2rem";
+    if (props.normal) return "1rem";
+    if (props.small) return "0.5rem";
+  }};
+  text-decoration: ${(props) => {
+    if (props.lineThrough) return "line-through";
+    return "none";
+  }};
+  color: ${(props) => {
+    if (props.muted) return "rgba(255,255,255, 0.3);";
+    return "#FFF";
+  }};
 `;

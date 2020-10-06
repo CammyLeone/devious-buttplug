@@ -1,95 +1,72 @@
-import React, { useState, useRef } from "react";
-import { ConnectAToy } from "react-buttplug";
+import React, { useState, Fragment } from "react";
 
 import LineWriter from "./LineWriter";
-import {
-  Chalkboard,
-  WritingArea,
-  NotesArea,
-  HiddenInput,
-  ChalkWriting,
-  ChalkButton,
-} from "./Chalkboard";
+import Vibration from "./Vibration";
+import { Chalkboard, WritingArea, NotesArea, Text } from "./Chalkboard";
 
-const ChalkInput = () => {
-  const [value, setValue] = useState(null);
-  const initial = value === null;
-  const inputRef = useRef(null);
-
-  return (
-    <div>
-      <HiddenInput
-        autoFocus
-        ref={inputRef}
-        value={value}
-        type="text"
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <ChalkWriting populated={!initial}>
-        <span
-          onClick={() => {
-            if (initial) setValue("");
-            inputRef.current.focus();
-          }}
-        >
-          {initial && "Click to start writing..."}
-          {!initial && value}
-        </span>
-      </ChalkWriting>
-    </div>
-  );
-};
-function App() {
-  const [device, setDevice] = useState(null);
+function App({ assignment }) {
+  const [lines, setLines] = useState([]);
+  const [successfulCount, setSuccessfulCount] = useState(0);
 
   return (
     <Chalkboard>
       <WritingArea>
-        <ChalkInput />
+        <LineWriter
+          target={assignment.text}
+          onSuccessfulLine={() => {
+            setLines([
+              ...lines,
+              { status: "success", content: assignment.text },
+            ]);
+            setSuccessfulCount(successfulCount + 1);
+          }}
+          onTypo={(content) => {
+            setLines([...lines, { status: "typo", content }]);
+            setSuccessfulCount(0);
+          }}
+        />
+        <Lines lines={[...lines].reverse()} />
       </WritingArea>
       <NotesArea>
         <section>
-          <p>
-            <strong>Assignment</strong>
-          </p>
-          <p>
-            You are to write
-            <br />
-            <em>"I like cock a lot"</em>
-            <br />
-            <strong>10</strong> times.
-          </p>
+          <Assignment text={assignment.text} count={assignment.count} />
         </section>
         <section>
-          <ConnectAToy
-            clickToStart={({ initiateConnection }) => (
-              <ChalkButton onClick={initiateConnection}>
-                Connect Your Toy
-              </ChalkButton>
-            )}
-            clickToStop={({ stopConnecting }) => (
-              <ChalkButton onClick={stopConnecting}>
-                Stop Connecting
-              </ChalkButton>
-            )}
-            connected={() => <ChalkButton disabled>Connected</ChalkButton>}
-          />
+          <Count current={successfulCount} total={assignment.count} />
+        </section>
+        <section>
+          <Vibration current={successfulCount} max={assignment.count} />
         </section>
       </NotesArea>
     </Chalkboard>
   );
-
-  if (!device)
-    return (
-      <ConnectAToy
-        render={({ initiateConnection }) => (
-          <button onClick={initiateConnection}>Write some Lines</button>
-        )}
-        onNewDevice={setDevice}
-      />
-    );
-
-  return <LineWriter device={device} line="I like cock a lot" times={10} />;
 }
+
+const Lines = ({ lines }) => (
+  <Fragment>
+    {lines.map(({ status, content }, idx) => (
+      <Text as="p" large muted lineThrough={status === "typo"} key={idx}>
+        {content}
+      </Text>
+    ))}
+  </Fragment>
+);
+
+const Assignment = ({ text, count }) => (
+  <Fragment>
+    <Text large>Assignment:</Text>
+    <Text normal>You are to write</Text>
+    <Text large>"{text}"</Text>
+    <Text normal>{count} times.</Text>
+  </Fragment>
+);
+
+const Count = ({ current, total }) => (
+  <Fragment>
+    <Text normal> You have </Text>
+    <Text large>{Math.max(0, total - current)}</Text>
+    <Text normal>lines to go.</Text>
+  </Fragment>
+);
 
 export default App;

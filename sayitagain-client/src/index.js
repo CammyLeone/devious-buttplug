@@ -6,7 +6,12 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App
+      assignment={{
+        text: "Mr. Grey owns my cock.",
+        count: 10,
+      }}
+    />
   </React.StrictMode>,
   document.getElementById("root")
 );
