@@ -8,9 +8,6 @@ import useTimesOutIn from "./hooks/useTimesOutIn";
 const scale = (times) =>
   d3.scaleLinear().clamp(true).domain([0, times]).range([0, 1]);
 
-const color = (max) =>
-  d3.scaleSequential(d3.interpolatePlasma).domain([0, max]);
-
 function LineWriter({ device, line, times }) {
   const [currentTimes, setCurrentTimes] = useState(0);
   const [text, updateText] = useState("");
@@ -43,13 +40,7 @@ function LineWriter({ device, line, times }) {
   }
 
   return (
-    <div
-      style={{
-        color: "#FFF",
-        height: "100vh",
-        backgroundColor: color(times)(currentTimes),
-      }}
-    >
+    <div>
       <section>
         <label htmlFor="line">
           <strong>{text}</strong>

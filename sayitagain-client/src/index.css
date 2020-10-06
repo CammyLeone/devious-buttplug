@@ -1,11 +1,12 @@
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font: 16pt 'Gloria Hallelujah';
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #FFF;
 }
 
 code {
