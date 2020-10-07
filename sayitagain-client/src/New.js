@@ -15,6 +15,10 @@ const ChalkLink = styled.a`
   color: #e9658f;
 `;
 
+const Container = styled.main`
+  padding: 2rem;
+`;
+
 export default function New() {
   const { register, handleSubmit } = useForm();
   const [url, setUrl] = useState(null);
@@ -31,7 +35,7 @@ export default function New() {
   };
 
   return (
-    <main>
+    <Container>
       <form onSubmit={handleSubmit(generateLink)}>
         <div>
           <Label htmlFor="text">Line they should write</Label>
@@ -59,7 +63,7 @@ export default function New() {
         {/*   <input name="cashtag" id="cashtag" type="text" ref={register} /> */}
         {/* </div> */}
         <div>
-          <input type="submit" />
+          <input type="submit" value="Generate a URL" />
         </div>
       </form>
       {url && (
@@ -76,6 +80,6 @@ export default function New() {
           </Text>
         </section>
       )}
-    </main>
+    </Container>
   );
 }
