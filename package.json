@@ -11,6 +11,7 @@
     "vibe-server",
     "react-buttplug",
     "sayitagain-client",
-    "tribute-lib"
+    "tribute-lib",
+    "tribute-client"
   ]
 }

@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "MuseoW01-900";
+    src: local("MuseoW01-900"), url(./assets/MuseoW01-900.woff) format("woff"),
+    url("./assets/MuseoW01-900.woff2") format("woff2"),
+    url("./assets/MuseoW01-900.ttf") format("truetype");
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "MuseoW01-900";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
