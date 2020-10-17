@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import throttle from "lodash.throttle";
 import * as d3 from "d3-scale";
@@ -21,7 +22,12 @@ const specialBackgrounds = {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url(https://static.wixstatic.com/media/5f397a_0fd6ca9520fa4e148efa5c7b1eacfbea~mv2.jpg/v1/fill/w_980,h_920,al_c,q_85,usm_0.66_1.00_0.01/5f397a_0fd6ca9520fa4e148efa5c7b1eacfbea~mv2.webp);
   `,
+  GoddessFaustine: css`
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url(https://static.wixstatic.com/media/7e492c_84ff1a4dd002470ebd044d451d9ce4d4~mv2.jpg/v1/fill/w_1400,h_935,al_c,q_90/7e492c_84ff1a4dd002470ebd044d451d9ce4d4~mv2.webp);
+  `,
 };
+
 const FullSizedMain = styled.main`
   ${(props) => specialBackgrounds[props.user] || defaultBackground};
   background-size: cover;
@@ -33,13 +39,21 @@ const FullSizedMain = styled.main`
   align-items: center;
 `;
 
-function Tribute({ platform, user }) {
+const OrJustPay = styled.div`
+  text-align: center;
+
+  & a {
+    color: rgba(255, 255, 255, 0.5);
+  }
+`;
+
+function Tribute({ platform, user, withToy }) {
   const [device, setDevice] = useState(null);
   const tributeRef = useRef(null);
   const [intensity, setIntensity] = useState(0);
 
   function updateFromMouse({ clientX, clientY }) {
-    if (!device) return;
+    if (!tributeRef.current) return;
 
     const distance = distanceToNode(tributeRef.current, clientX, clientY);
     const maxDistance = maxDistanceFromCenterOfNode(tributeRef.current);
@@ -61,19 +75,26 @@ function Tribute({ platform, user }) {
       user={user}
       onMouseMove={({ clientX, clientY }) => onMouseMove({ clientX, clientY })}
     >
-      <ConnectAToy
-        clickToStart={({ initiateConnection }) => (
-          <Button glow intensity={0.5} onClick={initiateConnection}>
-            Connect a Toy
-          </Button>
-        )}
-        clickToStop={({ stopConnecting }) => (
-          <Button onClick={stopConnecting}>Stop Connecting</Button>
-        )}
-        connected={() => null}
-        onNewDevice={(d) => setDevice(d)}
-      />
-      {device && (
+      {withToy && (
+        <ConnectAToy
+          clickToStart={({ initiateConnection }) => (
+            <div>
+              <Button glow intensity={0.5} onClick={initiateConnection}>
+                Connect a Toy
+              </Button>
+              <OrJustPay>
+                <Link to={`/${platform}/${user}/pay`}>or just pay</Link>
+              </OrJustPay>
+            </div>
+          )}
+          clickToStop={({ stopConnecting }) => (
+            <Button onClick={stopConnecting}>Stop Connecting</Button>
+          )}
+          connected={() => null}
+          onNewDevice={(d) => setDevice(d)}
+        />
+      )}
+      {(device || !withToy) && (
         <Button
           as="a"
           href={urlFor(platform, user)}
