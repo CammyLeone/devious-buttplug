@@ -48,7 +48,14 @@ function Assignment({ text, count }) {
 const Lines = ({ lines }) => (
   <Fragment>
     {lines.map(({ status, content }, idx) => (
-      <Text as="p" large muted lineThrough={status === "typo"} key={idx}>
+      <Text
+        as="p"
+        large
+        success={status === "success"}
+        error={status === "typo"}
+        lineThrough={status === "typo"}
+        key={idx}
+      >
         {content}
       </Text>
     ))}
@@ -67,7 +74,9 @@ const Instructions = ({ text, count }) => (
 const Count = ({ current, total }) => (
   <Fragment>
     <Text normal> You have </Text>
-    <Text large>{Math.max(0, total - current)}</Text>
+    <Text large attention>
+      {Math.max(0, total - current)}
+    </Text>
     <Text normal>lines to go.</Text>
   </Fragment>
 );

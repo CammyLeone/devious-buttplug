@@ -15,6 +15,9 @@ export const Text = styled.span`
   }};
   color: ${(props) => {
     if (props.muted) return "rgba(255,255,255, 0.3);";
+    if (props.error) return "#FFBEA4";
+    if (props.success) return "#9CCCB8";
+    if (props.attention) return "#A189B5";
     return "#FFF";
   }};
 `;
@@ -34,6 +37,7 @@ export const WritingArea = styled.section`
 
 export const InstructionAssignment = styled(Text).attrs(() => ({
   large: true,
+  attention: true,
 }))`
   word-break: break-word;
   text-align: center;
@@ -67,6 +71,7 @@ export const NotesArea = styled.section`
 `;
 
 export const ChalkWriting = styled.span`
+  cursor: text;
   position: relative;
   word-break: break-all;
   font-size: 4rem;
