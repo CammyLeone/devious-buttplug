@@ -3,7 +3,7 @@ import qs from "qs";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
-import { Text } from "./Chalkboard";
+import { Text } from "./style/Chalkboard";
 
 const URL_BASE = process.env.REACT_APP_LINK_BASE;
 

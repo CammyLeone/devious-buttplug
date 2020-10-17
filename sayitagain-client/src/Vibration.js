@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as d3 from "./d3-bundle";
 
 import { ConnectAToy, useVibration } from "react-buttplug";
-import { ChalkButton } from "./Chalkboard";
+import { ChalkButton } from "./style/Chalkboard";
 
 export default function Vibration({ current, max }) {
   const [device, setDevice] = useState(null);

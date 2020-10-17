@@ -1,22 +1,52 @@
 import styled from "styled-components";
-import chalk from "./chalk.png";
+import media from "./breakpoints";
+import chalk from "../assets/chalk.png";
+
+export const Text = styled.span`
+  font-size: ${(props) => {
+    if (props.huge) return "4rem";
+    if (props.large) return "2rem";
+    if (props.normal) return "1.5rem";
+    if (props.small) return "0.5rem";
+  }};
+  text-decoration: ${(props) => {
+    if (props.lineThrough) return "line-through";
+    return "none";
+  }};
+  color: ${(props) => {
+    if (props.muted) return "rgba(255,255,255, 0.3);";
+    return "#FFF";
+  }};
+`;
 
 export const Chalkboard = styled.main`
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
+  ${media.tabletUp`flex-direction: row;`}
 `;
 
 export const WritingArea = styled.section`
   height: 100vh;
   overflow: scroll;
-  flex-grow: 3;
   padding: 3rem;
+  flex-grow: 3;
+`;
+
+export const InstructionAssignment = styled(Text).attrs(() => ({
+  large: true,
+}))`
+  word-break: break-word;
+  text-align: center;
 `;
 
 export const NotesArea = styled.section`
-  width: 20%;
-  min-width: 300px;
-  border-left: 2px dotted #fff;
+  ${media.tabletUp`
+    min-width: 12rem;
+    max-width: 18rem;
+
+    border-left: 2px dotted #fff;
+  `}
+
   display: flex;
   flex-direction: column;
 
@@ -28,14 +58,17 @@ export const NotesArea = styled.section`
     align-items: center;
     padding: 2rem;
     border-bottom: 2px dotted #fff;
-    &:last-of-type {
-      border-bottom: 0;
-    }
+    ${media.tabletUp`
+      &:last-of-type {
+        border-bottom: 0;
+      }
+    `}
   }
 `;
 
 export const ChalkWriting = styled.span`
   position: relative;
+  word-break: break-all;
   font-size: 4rem;
 
   &::after {
@@ -66,21 +99,4 @@ export const ChalkButton = styled.button`
   &:active {
     background-color: rgba(255, 255, 255, 0.5);
   }
-`;
-
-export const Text = styled.span`
-  font-size: ${(props) => {
-    if (props.huge) return "4rem";
-    if (props.large) return "2rem";
-    if (props.normal) return "1rem";
-    if (props.small) return "0.5rem";
-  }};
-  text-decoration: ${(props) => {
-    if (props.lineThrough) return "line-through";
-    return "none";
-  }};
-  color: ${(props) => {
-    if (props.muted) return "rgba(255,255,255, 0.3);";
-    return "#FFF";
-  }};
 `;

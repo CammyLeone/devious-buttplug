@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Text } from "./Chalkboard";
+import { Text } from "./style/Chalkboard";
 import ChalkInput from "./ChalkInput";
 
 function LineWriter({ target, onSuccessfulLine, onTypo }) {

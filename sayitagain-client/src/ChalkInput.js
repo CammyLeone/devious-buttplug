@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-import { ChalkWriting } from "./Chalkboard";
+import { ChalkWriting } from "./style/Chalkboard";
 
 const HiddenInput = styled.input`
   position: absolute;

@@ -2,7 +2,13 @@ import React, { useState, Fragment } from "react";
 
 import LineWriter from "./LineWriter";
 import Vibration from "./Vibration";
-import { Chalkboard, WritingArea, NotesArea, Text } from "./Chalkboard";
+import {
+  Chalkboard,
+  WritingArea,
+  NotesArea,
+  Text,
+  InstructionAssignment,
+} from "./style/Chalkboard";
 
 function Assignment({ text, count }) {
   const [lines, setLines] = useState([]);
@@ -53,7 +59,7 @@ const Instructions = ({ text, count }) => (
   <Fragment>
     <Text large>Assignment:</Text>
     <Text normal>You are to write</Text>
-    <Text large>"{text}"</Text>
+    <InstructionAssignment>"{text}"</InstructionAssignment>
     <Text normal>{count} times.</Text>
   </Fragment>
 );
