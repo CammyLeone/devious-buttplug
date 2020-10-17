@@ -4,9 +4,9 @@ export default function useVibrate(device, level) {
   useEffect(() => {
     if (!device) return;
 
-    async function startVibrate() {
+    function startVibrate() {
       console.log("startVibrate()");
-      await device.SendVibrateCmd(level);
+      device.SendVibrateCmd(level);
       console.log("startVibrate() over");
     }
 
