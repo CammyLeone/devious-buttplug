@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - 12
+
+addons:
+  apt:
+    packages:
+      - libgconf-2-4 # cypress dep
+
+script:
+  - yarn lint
+  - yarn build
+  - yarn test:ci
