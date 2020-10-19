@@ -8,11 +8,15 @@ const DefaultClickToStop = ({ stopConnecting }) => (
   <button onClick={stopConnecting}>Stop Connecting</button>
 );
 const DefaultConnected = () => <span>Connected!</span>;
+const DefaultUnsupportedBrowser = () => (
+  <span>Use Chrome to connect a toy.</span>
+);
 
 export default function ConnectAToy({
   clickToStart = DefaultClickToStart,
   clickToStop = DefaultClickToStop,
   connected = DefaultConnected,
+  unsupportedBrowser = DefaultUnsupportedBrowser,
   onNewDevice,
 }) {
   const [isReady, setReady] = useState(false);
@@ -23,6 +27,7 @@ export default function ConnectAToy({
     onNewDevice(device);
   });
 
+  if (!window.Bluetooth) return unsupportedBrowser();
   if (isConnected) return connected();
   if (!isReady)
     return clickToStart({ initiateConnection: () => setReady(true) });
