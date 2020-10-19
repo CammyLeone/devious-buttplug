@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { Fragment, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import throttle from "lodash.throttle";
@@ -78,17 +78,29 @@ function Tribute({ platform, user, withToy }) {
       {withToy && (
         <ConnectAToy
           clickToStart={({ initiateConnection }) => (
-            <div>
+            <Fragment>
               <Button glow intensity={0.5} onClick={initiateConnection}>
                 Connect a Toy
               </Button>
               <OrJustPay>
                 <Link to={`/${platform}/${user}/pay`}>or just pay</Link>
               </OrJustPay>
-            </div>
+            </Fragment>
           )}
           clickToStop={({ stopConnecting }) => (
             <Button onClick={stopConnecting}>Stop Connecting</Button>
+          )}
+          unsupportedBrowser={() => (
+            <Fragment>
+              <Button glow intensity={0.5}>
+                <strong>Connect a Toy</strong>
+                <br />
+                (This only works in Chrome)
+              </Button>
+              <OrJustPay>
+                <Link to={`/${platform}/${user}/pay`}>or just pay</Link>
+              </OrJustPay>
+            </Fragment>
           )}
           connected={() => null}
           onNewDevice={(d) => setDevice(d)}

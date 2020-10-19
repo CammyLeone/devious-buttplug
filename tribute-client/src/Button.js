@@ -34,6 +34,7 @@ export default styled.a.attrs((props) => ({
   display: block;
   text-decoration: none;
   text-transform: uppercase;
+  text-align: center;
 
   line-height: 1.4em;
   padding: 10px 50px;
