@@ -91,8 +91,14 @@ export const ChalkWriting = styled.span`
 export const ChalkButton = styled.button`
   font-family: "Gloria Hallelujah";
   font-size: 2rem;
+  text-decoration: none;
   color: #fff;
   background-color: rgba(255, 255, 255, 0.1);
+  ${(props) =>
+    props.disabled &&
+    `
+    background-color: rgb(255,190,164, 0.4);
+  `}
   border: 1px solid #fff;
   padding: 1rem;
   border-radius: 0.25rem;

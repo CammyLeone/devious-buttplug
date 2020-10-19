@@ -19,6 +19,9 @@ export default function Vibration({ current, max }) {
         <ChalkButton onClick={stopConnecting}>Stop Connecting</ChalkButton>
       )}
       connected={() => <ChalkButton disabled>Connected</ChalkButton>}
+      unsupportedBrowser={() => (
+        <ChalkButton disabled>Connect a Toy in Chrome</ChalkButton>
+      )}
     />
   );
 }
