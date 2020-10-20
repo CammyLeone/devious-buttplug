@@ -12,6 +12,7 @@ type Props = ProjectType;
 const Project = ({
   name,
   description,
+  screenshots,
   homepage,
   repository,
   type,

@@ -7,6 +7,17 @@ export type QueryResponse = {
       id: string;
       name: string;
       description: string;
+      extendedDescription: {
+        childMarkdownRemark: {
+          rawMarkdownBody: string;
+        };
+      };
+      screenshots: {
+        title: string;
+        image: {
+          src: string;
+        };
+      }[];
       homepage: string;
       repository: string;
       publishedDate: string;
@@ -29,6 +40,17 @@ export const useProjectsQuery = (): Project[] => {
           id
           name
           description
+          extendedDescription {
+            childMarkdownRemark {
+              rawMarkdownBody
+            }
+          }
+          screenshots {
+            title
+            image: resize(width: 200, quality: 100) {
+              src
+            }
+          }
           homepage: projectUrl
           repository: repositoryUrl
           publishedDate(formatString: "YYYY")
@@ -44,11 +66,23 @@ export const useProjectsQuery = (): Project[] => {
     }
   `);
 
-  return contentfulAbout.projects.map(({ logo, ...rest }) => ({
-    ...rest,
-    logo: {
-      alt: logo.title,
-      src: logo.image.src,
+  return contentfulAbout.projects.map(
+    ({ extendedDescription, screenshots, logo, ...rest }) => {
+      return {
+        ...rest,
+        extendedDescription:
+          extendedDescription.childMarkdownRemark.rawMarkdownBody,
+        screenshots: screenshots
+          ? screenshots.map(({ title, image: { src } }) => ({
+              alt: title,
+              src,
+            }))
+          : [],
+        logo: {
+          alt: logo.title,
+          src: logo.image.src,
+        },
+      };
     },
-  }));
+  );
 };

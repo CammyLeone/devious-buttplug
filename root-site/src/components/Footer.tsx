@@ -15,15 +15,7 @@ const Footer = () => {
       <FooterContainer>
         <Fade direction="left" triggerOnce>
           <TextWrapper fontSize={[2, 3]}>
-            <span>{`${name} Portfolio - Powered by `}</span>
-            <Link href={GATSBY_URL}>Gatsby</Link>
-            <span>, </span>
-            <Link href={CONTENTFUL_URL}>Contentful</Link>
-            <span> and </span>
-            <Link href={NETLIFY_URL}>Netlify</Link>{' '}
-            <span role="img" aria-label="heart">
-              ❤️
-            </span>
+            <span>Brought to you by Cammy Leone's pervy brain</span>
           </TextWrapper>
         </Fade>
         <Flex>

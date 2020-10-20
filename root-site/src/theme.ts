@@ -12,13 +12,13 @@ const theme: Theme = {
   ...BASE_THEME,
   colors: {
     background: '#FFFFFF',
-    muted: '#f0e6f6',
+    muted: '#C7D989',
     gray: '#ddd',
     text: '#333333',
 
-    primary: '#7c37ad',
-    secondary: '#ff4081',
-    highlight: '#ff79b0',
+    primary: '#D93280',
+    secondary: '#55CAE4',
+    highlight: '#BED95F',
   },
   queries: {
     xs: '@media screen and (max-width: 40em)',

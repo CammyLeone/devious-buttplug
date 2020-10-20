@@ -12,11 +12,13 @@ export type Favicon = {
 export type Project = {
   name: string;
   description: string;
+  extendedDescription: string;
   homepage: string;
   repository: string;
   type: string;
   publishedDate: string;
   logo: Image;
+  screenshots: Image[];
 };
 
 export type AboutMe = {
