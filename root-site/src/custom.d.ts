@@ -73,3 +73,9 @@ declare module '*.svg' {
   const content: any;
   export default content;
 }
+
+declare module 'simple-react-lightbox' {
+  const def: any;
+  export const SRLWrapper: any;
+  export default def;
+}

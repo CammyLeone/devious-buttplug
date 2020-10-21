@@ -8,9 +8,9 @@
     "check-types": "tsc -p . --noEmit",
     "prebuild": "yarn get-about && yarn check-types",
     "build": "gatsby build --prefix-paths",
-    "deploy": "gh-pages -r https://github.com/CammyLeone/cammyleone.github.io -b main --dist public --dest all -m ",
+    "deploy": "yarn build && gh-pages -r https://github.com/CammyLeone/cammyleone.github.io -b main --dist public --dest all -m ",
     "prestart": "yarn get-about",
-    "start": "gatsby develop",
+    "start": "ENABLE_GATSBY_REFRESH_ENDPOINT=true gatsby develop",
     "clean": "rm -rf node_modules && gatsby clean",
     "serve": "yarn build && gatsby serve -p 9000",
     "lint": "eslint ./src",
@@ -66,6 +66,7 @@
     "react-scroll-section": "^3.0.1",
     "react-text-loop": "^2.0.1",
     "rebass": "^4.0.7",
+    "simple-react-lightbox": "^3.3.4-1",
     "styled-components": "^5.2.0"
   },
   "devDependencies": {

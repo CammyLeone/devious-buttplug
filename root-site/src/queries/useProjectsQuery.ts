@@ -47,7 +47,7 @@ export const useProjectsQuery = (): Project[] => {
           }
           screenshots {
             title
-            image: resize(width: 200, quality: 100) {
+            image: resize(width: 1280, quality: 100) {
               src
             }
           }
