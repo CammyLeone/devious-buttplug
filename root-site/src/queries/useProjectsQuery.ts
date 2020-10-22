@@ -6,6 +6,7 @@ export type QueryResponse = {
     projects: {
       id: string;
       name: string;
+      slug: string;
       description: string;
       extendedDescription: {
         childMarkdownRemark: {
@@ -39,6 +40,7 @@ export const useProjectsQuery = (): Project[] => {
         projects {
           id
           name
+          slug
           description
           extendedDescription {
             childMarkdownRemark {

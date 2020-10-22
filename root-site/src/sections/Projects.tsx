@@ -25,7 +25,7 @@ const Projects = () => {
 
 const Project = ({ project }: { project: ProjectType }) => (
   <SimpleReactLightbox>
-    <Section.Container id={project.name} Background={Background}>
+    <Section.Container id={project.slug} Background={Background}>
       <Section.Header name={project.name} />
       <Flex justifyContent="center" alignItems="center" flexWrap="wrap">
         <Box width={[1, 1, 4 / 6]} px={[1, 2, 4]} mt={2}>
