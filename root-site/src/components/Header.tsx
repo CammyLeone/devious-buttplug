@@ -25,7 +25,7 @@ const Header = () => {
             .map(({ id, onClick, selected }) => (
               <Box key={id} ml={[2, 3]} color="background" fontSize={[2, 3]}>
                 <Link onClick={onClick} selected={selected} tabIndex={0}>
-                  {capitalize(id)}
+                  {id.split("-").map(capitalize).join(" ")}
                 </Link>
               </Box>
             ))}
