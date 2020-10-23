@@ -9,9 +9,7 @@ type Props = {
 
 const Helmet = ({ theme }: Props) => {
   const { name, description, profile } = useHelmetQuery();
-  const title = `${name} Portfolio`;
-
-  console.log(`https:${profile.bigIcon.src}`);
+  const title = name;
 
   return (
     <ReactHelmet htmlAttributes={{ lang: 'en' }}>

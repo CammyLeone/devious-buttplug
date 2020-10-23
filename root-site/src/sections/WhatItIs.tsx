@@ -11,7 +11,6 @@ import { useAboutMeQuery } from '../queries/useAboutMeQuery';
 const WhatItIs = () => {
   const { markdown, profile } = useAboutMeQuery();
 
-  console.log(markdown)
   return (
     <Section.Container id="about" Background={Background}>
       <Section.Header name="About this Project" />

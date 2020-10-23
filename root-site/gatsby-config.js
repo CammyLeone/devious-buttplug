@@ -12,7 +12,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
-      name: `${about.name} Portfolio`,
+      name: about.name,
       short_name: about.name,
       start_url: '/',
       background_color: about.colors.background,
