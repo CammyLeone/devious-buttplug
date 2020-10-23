@@ -50,6 +50,7 @@ const Helmet = ({ theme }: Props) => {
         sizes="16x16"
         href={`https:${profile.favicon16.src}`}
       />
+      <script src="//code.tidio.co/crpgebixbr6sjiau9rkkbhivmhmh7cql.js" async></script>
     </ReactHelmet>
   );
 };
