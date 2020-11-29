@@ -18,7 +18,7 @@ const plugins = [
       background_color: about.colors.background,
       theme_color: about.colors.primary,
       display: 'minimal-ui',
-      icon: 'media/icon.png',
+      icon: 'media/logo/pink-cropped.png',
     },
   },
   'gatsby-plugin-offline',

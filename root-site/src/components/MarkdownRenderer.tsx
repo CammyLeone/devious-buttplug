@@ -46,7 +46,7 @@ const Root = styled.div`
 `;
 
 const MarkdownParagraph = styled(Text)`
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
 `;
 
 const MarkdownList = styled.ul`

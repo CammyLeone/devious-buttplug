@@ -35,12 +35,10 @@ const WhatItIs = () => {
 };
 
 const ProfilePicture = styled(Image)`
+  padding: 2rem;
+  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 50%;
   transition: all 0.4s ease-out;
-
-  &:hover {
-    border-radius: 20%;
-  }
 `;
 
 const Background = () => (
