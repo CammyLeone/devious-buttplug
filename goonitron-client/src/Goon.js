@@ -26,19 +26,24 @@ const selectRandomSlice = (size) => (array) => {
 export default function Goon({ files }) {
   const [currentSlice, setCurrentSlice] = useState(
     selectRandomSlice(100)(files).reduce((acc, file) => {
-      acc[file.preview] = false;
+      acc[file.preview] = { file, loaded: false };
       return acc;
     }, {})
   );
   const [currentImage, setCurrentImage] = useState(null);
 
-  const isCurrentImage = (image) => currentImage === image;
-  // const isCurrentImageLoaded = image => visible={loaded && isCurrentImage(file)}
-  const isSliceLoaded = Object.values(currentSlice).every((v) => v);
+  const isCurrentImage = (image) => {
+    if (currentImage && !currentImage.file) debugger;
+    return !!currentImage && currentImage.file.preview === image.preview;
+  };
+  const isSliceLoaded = Object.values(currentSlice).every((v) => v.loaded);
+  const remainingUnloaded = Object.values(currentSlice).filter(
+    (v) => !v.loaded
+  );
 
   useRandomInterval(
     (stop) => {
-      setCurrentImage(selectRandom(Object.keys(currentSlice)));
+      setCurrentImage(selectRandom(Object.values(currentSlice)));
       // if (stopCondition) {
       //   stop();
       // }
@@ -49,19 +54,23 @@ export default function Goon({ files }) {
 
   return (
     <GoonImageContainer>
-      {Object.entries(currentSlice).map(([file, loaded], idx) => (
+      {Object.values(currentSlice).map(({ file, loaded }, idx) => (
         <GoonImage
           key={idx}
-          src={file}
+          src={file.preview}
           visible={loaded && isCurrentImage(file)}
           onLoad={() => {
-            setCurrentSlice({ ...currentSlice, [file]: true });
+            setCurrentSlice({
+              ...currentSlice,
+              [file.preview]: { file, loaded: true },
+            });
           }}
           onError={(e) => {
             debugger;
           }}
         />
       ))}
+      {currentImage && <h3>Current image: {currentImage.file.path}</h3>}
       {!isSliceLoaded && <h1>Loading...</h1>}
     </GoonImageContainer>
   );
