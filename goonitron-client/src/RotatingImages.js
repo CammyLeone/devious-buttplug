@@ -1,18 +1,7 @@
 import React, { useState, useCallback } from "react";
-import styled from "styled-components";
 // import useRandomInterval from "react-random-interval-hook";
 import useRandomInterval from "./useRandomInterval";
-
-const GoonImageContainer = styled.div`
-  margin: 0;
-  height: 100%;
-`;
-const GoonImage = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
+import GoonImage from "./GoonImage";
 
 const selectRandom = (array) => array[Math.floor(Math.random() * array.length)];
 
@@ -31,13 +20,9 @@ const RotatingImages = ({ urls, onAllDisplayed }) => {
     [seen, current, urls, onAllDisplayed]
   );
 
-  useRandomInterval(rotate, 100, 2000);
+  useRandomInterval(rotate, 30000, 100000);
 
-  return (
-    <GoonImageContainer>
-      <GoonImage src={current} />
-    </GoonImageContainer>
-  );
+  return <GoonImage src={current} />;
 };
 
 export default RotatingImages;

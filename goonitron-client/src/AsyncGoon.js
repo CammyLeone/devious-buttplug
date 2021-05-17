@@ -22,7 +22,11 @@ class AsyncGoon extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.preloadSomeMore();
+  }
+
+  async preloadSomeMore() {
     const { unLoaded, preLoaded } = this.state;
     const pathsToLoad = selectRandomSlice(100)(unLoaded);
     const promises = pathsToLoad.map(
@@ -56,7 +60,7 @@ class AsyncGoon extends React.Component {
       <RotatingImages
         urls={urls}
         onAllDisplayed={() => {
-          debugger;
+          this.preloadSomeMore();
         }}
       />
     );

@@ -1,23 +1,33 @@
 import React, { useState, useCallback } from "react";
-
 import { useDropzone } from "react-dropzone";
-import Goon from "./Goon";
+import { createGlobalStyle } from "styled-components";
 
+import AsyncGoon from "./AsyncGoon";
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+`;
 function App() {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
+      acceptedFiles.reduce((acc, file) => {
+        acc[file.path] = Object.assign(file, {
           preview: URL.createObjectURL(file),
-        })
-      )
+        });
+        return acc;
+      }, {})
     );
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <main>
+      <GlobalStyle />
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? (
@@ -27,27 +37,8 @@ function App() {
         )}
       </div>
       {/* <PreviewFiles files={files} /> */}
-      {!!files.length && <Goon files={files} />}
+      {!!Object.keys(files).length && <AsyncGoon files={files} />}
     </main>
   );
 }
-
-const PreviewFiles = ({ files }) => (
-  <ul>
-    {files.map((file, idx) => {
-      return (
-        <img
-          key={idx}
-          src={file.preview}
-          style={{
-            width: "50px",
-            height: "50px",
-            padding: "10px",
-            display: "inline-block",
-          }}
-        />
-      );
-    })}
-  </ul>
-);
 export default App;
