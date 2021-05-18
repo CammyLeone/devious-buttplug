@@ -3,6 +3,8 @@ import styled, { createGlobalStyle } from "styled-components";
 
 import AsyncGoon from "./AsyncGoon";
 import DropFilesHere from "./DropFilesHere";
+import RotatingImages, { Speeds, DisplayModes } from "./RotatingImages";
+import Knobs from "./Knobs";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -22,6 +24,8 @@ const LayoutContainer = styled.div`
 
 function App() {
   const [files, setFiles] = useState([]);
+  const [speed, setSpeed] = useState(2);
+  const [display, setDisplay] = useState(DisplayModes.FULL);
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
       acceptedFiles.reduce((acc, file) => {
@@ -38,8 +42,27 @@ function App() {
       <GlobalStyle />
       <LayoutContainer>
         <DropFilesHere onDrop={onDrop} />
+        <Knobs
+          speed={speed}
+          setSpeed={setSpeed}
+          display={display}
+          setDisplay={setDisplay}
+        />
         {/* <PreviewFiles files={files} /> */}
-        {!!Object.keys(files).length && <AsyncGoon files={files} />}
+        {!!Object.keys(files).length && (
+          <AsyncGoon
+            batchSize={100}
+            files={files}
+            component={({ urls, preloadMore }) => (
+              <RotatingImages
+                urls={urls}
+                onAllDisplayed={preloadMore}
+                displayMode={display}
+                speed={speed}
+              />
+            )}
+          />
+        )}
       </LayoutContainer>
     </main>
   );

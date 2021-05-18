@@ -1,10 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 
-const ContainedImage = styled.div.attrs(({ src, fill }) => ({
+const ContainedImage = styled.div.attrs(({ src, displayMode }) => ({
   style: {
     backgroundImage: `url(${src})`,
-    backgroundSize: fill ? "cover" : "contain",
+    backgroundSize: displayMode,
   },
 }))`
   flex-grow: 1;
@@ -12,10 +11,4 @@ const ContainedImage = styled.div.attrs(({ src, fill }) => ({
   background-position: center;
 `;
 
-export default ({ fill, src, children }) => {
-  return (
-    <ContainedImage src={src} fill={fill}>
-      {children}
-    </ContainedImage>
-  );
-};
+export default ContainedImage;

@@ -1,5 +1,4 @@
 import React from "react";
-import RotatingImages from "./RotatingImages";
 
 const selectRandom = (array) => array[Math.floor(Math.random() * array.length)];
 const selectRandomSlice = (size) => (array) => {
@@ -38,7 +37,8 @@ class AsyncGoon extends React.Component {
       return;
     }
     this.setState({ isPreloading: true });
-    const pathsToLoad = selectRandomSlice(3)(unLoaded);
+
+    const pathsToLoad = selectRandomSlice(this.props.batchSize)(unLoaded);
     const promises = pathsToLoad.map(
       (path) =>
         new Promise((resolve, reject) => {
@@ -64,13 +64,14 @@ class AsyncGoon extends React.Component {
   }
 
   render() {
+    const Component = this.props.component;
     const urls = this.state.preLoaded.map((f) => this.props.files[f].preview);
     if (urls.length === 0) return null;
 
     return (
-      <RotatingImages
+      <Component
         urls={urls}
-        onAllDisplayed={() => {
+        preloadMore={() => {
           this.preloadSomeMore();
         }}
       />
