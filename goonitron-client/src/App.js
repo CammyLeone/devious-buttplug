@@ -1,16 +1,25 @@
 import React, { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 import AsyncGoon from "./AsyncGoon";
+import DropFilesHere from "./DropFilesHere";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
     min-height: 100vh;
     padding: 0;
     margin: 0;
+    background-color: #000;
+    color: #FFF;
   }
 `;
+
+const LayoutContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
 function App() {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
@@ -23,21 +32,15 @@ function App() {
       }, {})
     );
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <main>
       <GlobalStyle />
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </div>
-      {/* <PreviewFiles files={files} /> */}
-      {!!Object.keys(files).length && <AsyncGoon files={files} />}
+      <LayoutContainer>
+        <DropFilesHere onDrop={onDrop} />
+        {/* <PreviewFiles files={files} /> */}
+        {!!Object.keys(files).length && <AsyncGoon files={files} />}
+      </LayoutContainer>
     </main>
   );
 }

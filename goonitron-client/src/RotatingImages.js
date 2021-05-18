@@ -11,18 +11,28 @@ const RotatingImages = ({ urls, onAllDisplayed }) => {
 
   const rotate = useCallback(
     (stop) => {
+      const unSeen = urls.filter((url) => seen[url] === undefined);
       setSeen({ ...seen, [current]: true });
-      setCurrent(selectRandom(urls));
-      if (Object.keys(seen).length === urls.length) {
+      if (unSeen.length === 0) {
+        setCurrent(selectRandom(urls));
         onAllDisplayed();
+      } else {
+        setCurrent(selectRandom(unSeen));
       }
     },
-    [seen, current, urls, onAllDisplayed]
+    [seen, urls, current, onAllDisplayed]
   );
 
-  useRandomInterval(rotate, 30000, 100000);
+  useRandomInterval(rotate, 500, 500);
 
-  return <GoonImage src={current} />;
+  return (
+    <>
+      <div style={{ fontSize: 12, marginTop: -5 }}>
+        {Object.keys(seen).length} / {urls.length}
+      </div>
+      <GoonImage src={current} fill />
+    </>
+  );
 };
 
 export default RotatingImages;

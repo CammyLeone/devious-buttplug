@@ -28,7 +28,17 @@ class AsyncGoon extends React.Component {
 
   async preloadSomeMore() {
     const { unLoaded, preLoaded } = this.state;
-    const pathsToLoad = selectRandomSlice(100)(unLoaded);
+    if (!unLoaded.length) {
+      console.log("Got em all!");
+      return;
+    }
+
+    if (this.state.isPreloading) {
+      console.log("Already preloading!");
+      return;
+    }
+    this.setState({ isPreloading: true });
+    const pathsToLoad = selectRandomSlice(3)(unLoaded);
     const promises = pathsToLoad.map(
       (path) =>
         new Promise((resolve, reject) => {
@@ -49,6 +59,7 @@ class AsyncGoon extends React.Component {
     this.setState({
       preLoaded: [...preLoaded, ...pathsToLoad],
       unLoaded: unLoaded.filter((path) => !pathsToLoad.includes(path)),
+      isPreloading: false,
     });
   }
 
