@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled, { createGlobalStyle } from "styled-components";
+import { ConnectAToy, useVibration } from "react-buttplug";
 
 import AsyncGoon from "./AsyncGoon";
 import DropFilesHere from "./DropFilesHere";
@@ -26,6 +27,9 @@ function App() {
   const [files, setFiles] = useState([]);
   const [speed, setSpeed] = useState(2);
   const [display, setDisplay] = useState(DisplayModes.FULL);
+  const [device, setDevice] = useState(null);
+  useVibration(device, (speed / 10) * 2);
+
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(
       acceptedFiles.reduce((acc, file) => {
@@ -48,6 +52,7 @@ function App() {
           display={display}
           setDisplay={setDisplay}
         />
+        <ConnectAToy onNewDevice={setDevice} />
         {/* <PreviewFiles files={files} /> */}
         {!!Object.keys(files).length && (
           <AsyncGoon
