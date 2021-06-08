@@ -44,12 +44,14 @@ const RotatingImages = ({ urls, onAllDisplayed, speed, displayMode }) => {
   );
 
   return (
-    <>
+    <div
+      style={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}
+    >
       <div style={{ fontSize: 12, marginTop: -5 }}>
         {Object.keys(seen).length} / {urls.length}
       </div>
       <GoonImage src={current} displayMode={displayMode} />
-    </>
+    </div>
   );
 };
 

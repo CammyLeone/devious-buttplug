@@ -1,27 +1,11 @@
 import React, { useState, useCallback } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import { ConnectAToy, useVibration } from "react-buttplug";
+import { useVibration } from "react-buttplug";
 
+import { GlobalStyle, Knobs } from "./Layout";
 import AsyncGoon from "./AsyncGoon";
-import DropFilesHere from "./DropFilesHere";
-import RotatingImages, { Speeds, DisplayModes } from "./RotatingImages";
-import Knobs from "./Knobs";
-
-const GlobalStyle = createGlobalStyle`
-  html, body {
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
-    background-color: #000;
-    color: #FFF;
-  }
-`;
-
-const LayoutContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
+import GetStarted from "./GetStarted";
+import RotatingImages, { DisplayModes } from "./RotatingImages";
+import { SpeedKnob, DisplayModeKnob } from "./Knobs";
 
 function App() {
   const [files, setFiles] = useState([]);
@@ -30,7 +14,7 @@ function App() {
   const [device, setDevice] = useState(null);
   useVibration(device, (speed / 10) * 2);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onFilesReceived = useCallback((acceptedFiles) => {
     setFiles(
       acceptedFiles.reduce((acc, file) => {
         acc[file.path] = Object.assign(file, {
@@ -41,20 +25,19 @@ function App() {
     );
   }, []);
 
+  const hasFiles = !!Object.keys(files).length;
   return (
     <main>
       <GlobalStyle />
-      <LayoutContainer>
-        <DropFilesHere onDrop={onDrop} />
-        <Knobs
-          speed={speed}
-          setSpeed={setSpeed}
-          display={display}
-          setDisplay={setDisplay}
-        />
-        <ConnectAToy onNewDevice={setDevice} />
-        {/* <PreviewFiles files={files} /> */}
-        {!!Object.keys(files).length && (
+      {!hasFiles && (
+        <GetStarted onFiles={onFilesReceived} onNewDevice={setDevice} />
+      )}
+      {hasFiles && (
+        <>
+          <Knobs>
+            <SpeedKnob speed={speed} setSpeed={setSpeed} />
+            <DisplayModeKnob display={display} setDisplay={setDisplay} />
+          </Knobs>
           <AsyncGoon
             batchSize={100}
             files={files}
@@ -67,8 +50,8 @@ function App() {
               />
             )}
           />
-        )}
-      </LayoutContainer>
+        </>
+      )}
     </main>
   );
 }
