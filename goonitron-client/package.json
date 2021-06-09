@@ -18,6 +18,8 @@
     "react-buttplug": "1.0.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.3.2",
+    "react-icons": "^4.2.0",
+    "react-range": "^1.8.9",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "styled-breakpoints": "^10.0.0",

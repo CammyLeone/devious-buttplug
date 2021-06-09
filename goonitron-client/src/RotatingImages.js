@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-// import useRandomInterval from "react-random-interval-hook";
 import useRandomInterval from "./useRandomInterval";
 import GoonImage from "./GoonImage";
 

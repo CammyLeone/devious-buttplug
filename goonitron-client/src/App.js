@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { useVibration } from "react-buttplug";
 
-import { GlobalStyle, Knobs } from "./Layout";
+import { GlobalStyle } from "./Layout";
 import AsyncGoon from "./AsyncGoon";
 import GetStarted from "./GetStarted";
 import RotatingImages, { DisplayModes } from "./RotatingImages";
-import { SpeedKnob, DisplayModeKnob } from "./Knobs";
+import { SpeedKnob, DisplayModeKnob, StartOverKnob } from "./Knobs";
 
 function App() {
   const [files, setFiles] = useState([]);
@@ -34,10 +34,9 @@ function App() {
       )}
       {hasFiles && (
         <>
-          <Knobs>
-            <SpeedKnob speed={speed} setSpeed={setSpeed} />
-            <DisplayModeKnob display={display} setDisplay={setDisplay} />
-          </Knobs>
+          <SpeedKnob speed={speed} setSpeed={setSpeed} />
+          <DisplayModeKnob display={display} setDisplay={setDisplay} />
+          <StartOverKnob />
           <AsyncGoon
             batchSize={100}
             files={files}
