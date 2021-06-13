@@ -5,6 +5,7 @@
   },
   "private": true,
   "workspaces": [
+    "goonitron-client",
     "rinse-client",
     "rinse-server",
     "vibe-client",
