@@ -62,6 +62,18 @@ This script, when embedded on your website, imbues an HTML element with the magi
 
 ---
 
+### Goon
+
+Does someone need to be put into a trance-like submissive state?
+
+[Goon](https://plug.willyouplease.me/goon "Goon") will do that for you.  Bring your own photos and a vibrating toy!  This app will display the photos on a continuous random loop, until the user is mesmerized and fixated on whatever they're looking at.
+
+For extra-twisted folx, feel free to plug in photos of something you're reluctant to be turned on by 😈
+
+Drooling and orgasms are optional with [Goon](https://plug.willyouplease.me/goon "Goon").
+
+---
+
 ### react-buttplug
 
 All of the above apps are powered by [react-buttplug](https://github.com/CammyLeone/devious-buttplug/tree/main/react-buttplug).  It's not published to NPM yet, but it will be soon.  Give me a poke if you want me to hurry up on that.
