@@ -77,3 +77,6 @@ Drooling and orgasms are optional with [Goon](https://plug.willyouplease.me/goon
 ### react-buttplug
 
 All of the above apps are powered by [react-buttplug](https://github.com/CammyLeone/devious-buttplug/tree/main/react-buttplug).  It's not published to NPM yet, but it will be soon.  Give me a poke if you want me to hurry up on that.
+
+![](https://github.com/CammyLeone/devious-buttplug/blob/main/root-site/media/logo-original/icons-01.png?raw=true)
+
