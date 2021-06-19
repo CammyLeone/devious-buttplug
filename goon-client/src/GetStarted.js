@@ -1,6 +1,7 @@
 import React from "react";
 import { ConnectAToy } from "react-buttplug";
 import styled from "styled-components";
+import { down } from "styled-breakpoints";
 import { useDropzone } from "react-dropzone";
 import ButtplugIcon from "./ButtplugIcon";
 
@@ -32,6 +33,21 @@ const Button = styled.div`
   &:hover {
     background-color: #f6c8c7;
   }
+
+  ${down("md")} {
+    font-size: 0.875rem;
+    padding: 1rem;
+    margin: 0.25rem;
+  }
+`;
+
+const GoonText = styled.span`
+  font-size: 8rem;
+  text-align: center;
+
+  ${down("md")} {
+    font-size: 5rem;
+  }
 `;
 
 function DropFilesHere({ onDrop }) {
@@ -53,7 +69,7 @@ function DropFilesHere({ onDrop }) {
 const GetStarted = ({ onFiles, onNewDevice }) => (
   <GetStartedContainer>
     <GetStartedContent>
-      <span style={{ fontSize: "8rem", textAlign: "center" }}>Goon</span>
+      <GoonText>Goon</GoonText>
       <DropFilesHere onDrop={onFiles} />
       <ConnectAToy
         onNewDevice={onNewDevice}
